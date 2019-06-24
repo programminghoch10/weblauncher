@@ -6,11 +6,12 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+import static android.content.ContentValues.TAG;
+
 public class WifiChecker extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
-        final String TAG = "WifiChecker";
-        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         int state = wifi.getWifiState();
         Log.i(TAG, "onReceive: Got Wifi State: "+state);
         switch(state) {
@@ -19,10 +20,9 @@ public class WifiChecker extends BroadcastReceiver {
                 wifi.setWifiEnabled(true);
                 break;
             case WifiManager.WIFI_STATE_ENABLED:
-                break;
             case WifiManager.WIFI_STATE_DISABLING:
-                break;
             case WifiManager.WIFI_STATE_ENABLING:
+            default:
                 break;
         }
         
