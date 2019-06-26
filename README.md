@@ -1,9 +1,13 @@
 # weblauncher
-This is a launcher which goes into fullscreen to show a website, used for kiosk applications
+Weblauncher is a startscreen launcher which only has the purpose to display a website, made for kiosk purposes.
 
-This launcher is made to only show websites in kiosk mode.
+__This version is made only for rooted devices!__
 
-Features:
+[no root version](https://github.com/programminghoch10/weblauncher/tree/norootversion)
+
+
+
+## Features:
 - 2 webpages switchable using volume keys
 - reload webpage using volume keys
 - always uses current webpage due to disabled cache
@@ -14,4 +18,12 @@ Features:
   - build.prop properties JJ.Page1 and JJ.Page2
   - if those arent defined, google.de and example.com are used
 
-[Test APK](https://github.com/programminghoch10/weblauncher/raw/master/app/release/app-release.apk)
+[Download APK](https://github.com/programminghoch10/weblauncher/raw/master/app/release/app-release.apk)
+
+## Install
+1. Install the app by downloading on target device or by pushing via adb
+1. set the build.prop parameters "JJ.Page1" and "JJ.Page2" to the wished 2 websites you want to be used (and reboot)
+1. test the app by launching the weblauncher through your launcher
+1. if everything works fine set weblauncher as default launcher
+1. for complete kiosk mode disable apps like system settings, camera and other apps which may be launched using lockscreen, keys or the notification bar
+1. _You're done!_
