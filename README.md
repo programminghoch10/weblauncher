@@ -18,7 +18,7 @@ __This version is made only for rooted devices!__
   - build.prop properties JJ.Page1 and JJ.Page2
   - if those arent defined, google.de and example.com are used
 
-[Download APK](https://github.com/programminghoch10/weblauncher/raw/master/app/release/app-release.apk)
+[Download APK](https://github.com/programminghoch10/weblauncher/raw/rootedversion/app/release/app-release.apk)
 
 ## Install
 1. Install the app by downloading on target device or by pushing via adb
