@@ -1,5 +1,5 @@
 # weblauncher
-Weblauncher is a startscreen launcher which only has the purpose to display a website, made for kiosk purposes.
+Weblauncher is a startscreen launcher which displays a website, made for kiosk purposes.
 
 __The no root version is currently beeing developed! Do not expect it to work.__
 
