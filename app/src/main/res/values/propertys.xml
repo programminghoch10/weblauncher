@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="WebView1URL">com.JJ.weblauncher.page1.url</string>
+    <string name="WebView2URL">com.JJ.weblauncher.page2.url</string>
+</resources>

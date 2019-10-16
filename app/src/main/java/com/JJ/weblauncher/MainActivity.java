@@ -1,7 +1,7 @@
 package com.JJ.weblauncher;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,9 +16,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-
-    static String StartPage1 = "http://google.de";
-    static String StartPage2 = "http://example.com";
+    
+    //static String StartPage1 = "http://google.de";
+    //static String StartPage2 = "http://example.com";
+    static String StartPage1 = "about:blank";
+    static String StartPage2 = "about:blank";
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -31,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String Page1 = getSystemProperty("JJ.Page1");
+        String Page1 = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView1URL));
         if (Page1 == null) {Page1 = "";}
         if (Page1.equals("")) {
             Page1 = StartPage1;
         }
 
-        WebView myWebView1 = findViewById(R.id.webview);
+        WebView myWebView1 = findViewById(R.id.webview1);
         myWebView1.loadUrl(Page1);
         WebSettings webSettings1 = myWebView1.getSettings();
         webSettings1.setJavaScriptEnabled(true);
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         });
         myWebView2.setLongClickable(false);
         myWebView2.setHapticFeedbackEnabled(false);
+        
+        setWebviewVisibilitys(1);
 
 
         getWindow().getDecorView().setSystemUiVisibility(
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        
     }
 
     @Override
@@ -133,18 +138,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        WebView myWebView1 = findViewById(R.id.webview);
+        WebView myWebView1 = findViewById(R.id.webview1);
         WebView myWebView2 = findViewById(R.id.webview2);
-        String Page1 = getSystemProperty("JJ.Page1");
-        String Page2 = getSystemProperty("JJ.Page2");
+        String Page1 = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView1URL));
+        String Page2 = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView2URL));
         if (Page1 == null) {Page1 = "";}
         if (Page2 == null) {Page2 = "";}
-        if (Page1.equals("")) {
-            Page1 = StartPage1;
-        }
-        if (Page2.equals("")) {
-            Page2 = StartPage2;
-        }
+        if (Page1.equals("")) Page1 = StartPage1;
+        if (Page2.equals("")) Page2 = StartPage2;
         Log.i("weblauncher", "onKeyDown: Page1: "+Page1);
         Log.i("weblauncher", "onKeyDown: Page2: "+Page2);
 
@@ -152,16 +153,14 @@ public class MainActivity extends AppCompatActivity {
             if(myWebView2.isShown() || myWebView2.getUrl().equals("about:blank")) {
                 myWebView2.loadUrl(Page2);
             }
-            myWebView2.setVisibility(View.VISIBLE);
-            myWebView1.setVisibility(View.INVISIBLE);
+            setWebviewVisibilitys(2);
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
             if(myWebView1.isShown()) {
                 myWebView1.loadUrl(Page1);
             }
-            myWebView1.setVisibility(View.VISIBLE);
-            myWebView2.setVisibility(View.INVISIBLE);
+            setWebviewVisibilitys(1);
             myWebView2.loadUrl("about:blank");
             return true;
         }
@@ -173,6 +172,17 @@ public class MainActivity extends AppCompatActivity {
         */
         onWindowFocusChanged(true);
         return true;
+    }
+    
+    void setWebviewVisibilitys(int webviewid) {
+        if (webviewid < 0 | webviewid > 2) return;
+        int[][] visibiltys = {
+                {View.GONE, View.GONE},
+                {View.VISIBLE, View.INVISIBLE},
+                {View.INVISIBLE, View.VISIBLE},
+        };
+        findViewById(R.id.webview1).setVisibility(visibiltys[webviewid][0]);
+        findViewById(R.id.webview2).setVisibility(visibiltys[webviewid][1]);
     }
 
     private String getSystemProperty(String propertyName) {
