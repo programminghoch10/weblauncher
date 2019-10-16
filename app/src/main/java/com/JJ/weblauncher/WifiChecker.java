@@ -7,9 +7,9 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-import static android.content.ContentValues.TAG;
-
 public class WifiChecker extends BroadcastReceiver {
+	
+	static final String TAG = "WifiChecker";
 	
 	public void onReceive(Context context, Intent intent) {
 		try {

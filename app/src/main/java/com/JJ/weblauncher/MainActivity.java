@@ -2,6 +2,9 @@ package com.JJ.weblauncher;
 
 import android.annotation.SuppressLint;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 	//static String StartPage2 = "http://example.com";
 	static String StartPage1 = "about:blank";
 	static String StartPage2 = "about:blank";
+	public static int buttoncount = 0;
+	static final String TAG = "MainActivity";
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 		myWebView2.setLongClickable(false);
 		myWebView2.setHapticFeedbackEnabled(false);
 		
-		setWebviewVisibilitys(1);
+		//setWebviewVisibilitys(1);
 		
 		
 		getWindow().getDecorView().setSystemUiVisibility(
@@ -146,35 +151,62 @@ public class MainActivity extends AppCompatActivity {
 		if (Page2 == null) {Page2 = "";}
 		if (Page1.equals("")) Page1 = StartPage1;
 		if (Page2.equals("")) Page2 = StartPage2;
-		Log.i("weblauncher", "onKeyDown: Page1: "+Page1);
-		Log.i("weblauncher", "onKeyDown: Page2: "+Page2);
+		//Log.i("weblauncher", "onKeyDown: Page1: "+Page1);
+		//Log.i("weblauncher", "onKeyDown: Page2: "+Page2);
 		
-		if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
-			if(myWebView2.isShown() || myWebView2.getUrl().equals("about:blank")) {
-				myWebView2.loadUrl(Page2);
-			}
-			setWebviewVisibilitys(2);
-			return true;
+		//button count: <0 is voldown and >0 is volup
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_VOLUME_DOWN:
+				if (buttoncount > 0) buttoncount = 0;
+				buttoncount--;
+				switch (buttoncount) {
+					default:
+						setWebviewVisibilitys(2);
+						break;
+					case -2:
+						myWebView2.loadUrl(Page2);
+						break;
+					case -10:
+						finish();
+						break;
+				}
+				break;
+			case KeyEvent.KEYCODE_VOLUME_UP:
+				if (buttoncount < 0) buttoncount = 0;
+				buttoncount++;
+				switch (buttoncount) {
+					default:
+						setWebviewVisibilitys(1);
+						myWebView2.loadUrl("about:blank");
+						break;
+					case 2:
+						myWebView1.loadUrl(Page1);
+						break;
+				}
+				break;
+			case KeyEvent.KEYCODE_BACK:
+				//currently unused
+				/*
+				if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView2.canGoBack()) {
+				   myWebView2.goBack();
+				   return true;
+				}
+				*/
+			default:
+				onWindowFocusChanged(true);
+				break;
 		}
-		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-			if(myWebView1.isShown()) {
-				myWebView1.loadUrl(Page1);
-			}
-			setWebviewVisibilitys(1);
-			myWebView2.loadUrl("about:blank");
-			return true;
+		if (Math.abs(buttoncount) >= MainActivity.this.getResources().getInteger(R.integer.paniccount)) {
+			//not optimal solution
+			Intent intent = getIntent();
+			finish();
+			startActivity(intent);
 		}
-        /*
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView2.canGoBack()) {
-            myWebView2.goBack();
-            return true;
-        }
-        */
-		onWindowFocusChanged(true);
+		Log.d(TAG, "onKeyDown: buttoncount is " + buttoncount);
 		return true;
 	}
 	
-	void setWebviewVisibilitys(int webviewid) {
+	public void setWebviewVisibilitys(int webviewid) {
 		if (webviewid < 0 | webviewid > 2) return;
 		int[][] visibiltys = {
 				{View.GONE, View.GONE},

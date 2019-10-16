@@ -21,6 +21,9 @@ soon there will be a proper [no root version](https://github.com/programminghoch
   - if those aren't defined, a blank page is displayed (about:blank)
   
 ## Install
+
+_At the moment still the keys JJ.Page1 and JJ.Page2 are used, but will be switched soon to the ones described here_
+
 1. Install the app by downloading on target device or by pushing via adb
 1. set the build.prop parameters "com.JJ.weblauncher.page1.url" and "com.JJ.weblauncher.page2.url" to the wished 2 websites you want to be used (and reboot)
 1. test the app by launching the weblauncher through your launcher
@@ -30,6 +33,6 @@ soon there will be a proper [no root version](https://github.com/programminghoch
 
 [Download APK](https://github.com/programminghoch10/weblauncher/raw/rootedversion/app/release/app-release.apk)
 
-## How to kiosk
+## How to properly make a kiosk
 
 Here will be a section explaining how to properly use kiosk with this app soon.

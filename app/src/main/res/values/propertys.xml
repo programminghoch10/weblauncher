@@ -2,4 +2,5 @@
 <resources>
     <string name="WebView1URL">com.JJ.weblauncher.page1.url</string>
     <string name="WebView2URL">com.JJ.weblauncher.page2.url</string>
+    <integer name="paniccount">10</integer>
 </resources>
