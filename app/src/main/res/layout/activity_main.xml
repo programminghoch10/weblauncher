@@ -7,6 +7,20 @@
     android:background="@color/titlebackgroundcolor"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="weblauncher logo"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/weblauncher" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -37,7 +51,7 @@
         android:id="@+id/webview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible" >
+        android:visibility="invisible">
 
     </WebView>
 
