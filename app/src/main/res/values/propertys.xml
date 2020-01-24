@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="WebView1URL">com.JJ.weblauncher.page1.url</string>
-    <string name="WebView2URL">com.JJ.weblauncher.page2.url</string>
+    <string name="buildpropprefix">com.JJ.weblauncher.</string>
+
+    <string name="WebView1URL">page1.url</string>
+    <string name="WebView1unload">page1.unload</string>
+    <string name="WebView1js">page1.js</string>
+    <string name="WebView1cache">page1.cache</string>
+    <string name="WebView1haptic">page1.haptic</string>
+    <string name="WebView2URL">page2.url</string>
+    <string name="WebView2unload">page2.unload</string>
+    <string name="WebView2js">page2.js</string>
+    <string name="WebView2cache">page2.cache</string>
+    <string name="WebView2haptic">page2.haptic</string>
+
     <integer name="paniccount">10</integer>
 </resources>
