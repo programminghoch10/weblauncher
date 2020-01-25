@@ -6,8 +6,8 @@ android {
         applicationId "com.JJ.weblauncher"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 7
-        versionName "7"
+        versionCode 8
+        versionName "8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
