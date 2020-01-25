@@ -38,47 +38,18 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		String Page1 = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView1URL));
-		if (Page1 == null) {Page1 = "";}
-		if (Page1.equals("")) {
-			Page1 = StartPage1;
-		}
+		//WebView Setup
+		WebView[] webviews = {
+				findViewById(R.id.webview1),
+				findViewById(R.id.webview2),
+		};
+        for (int i = 0; i < webviews.length; i++) {
+            WebView webView = webviews[i];
+            setupWebView(webView, i);
+        }
 		
-		WebView myWebView1 = findViewById(R.id.webview1);
-		myWebView1.loadUrl(Page1);
-		WebSettings webSettings1 = myWebView1.getSettings();
-		webSettings1.setJavaScriptEnabled(true);
-		myWebView1.setWebViewClient(new WebViewClient());
-		webSettings1.setAppCacheEnabled(false);
-		webSettings1.setCacheMode(WebSettings.LOAD_NO_CACHE);
-		myWebView1.setOnLongClickListener(new View.OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				return true;
-			}
-		});
-		myWebView1.setLongClickable(false);
-		myWebView1.setHapticFeedbackEnabled(false);
-		
-		WebView myWebView2 = findViewById(R.id.webview2);
-		myWebView2.loadUrl("about:blank");
-		WebSettings webSettings2 = myWebView2.getSettings();
-		webSettings2.setJavaScriptEnabled(true);
-		myWebView2.setWebViewClient(new WebViewClient());
-		webSettings2.setAppCacheEnabled(false);
-		webSettings2.setCacheMode(WebSettings.LOAD_NO_CACHE);
-		myWebView2.setOnLongClickListener(new View.OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				return true;
-			}
-		});
-		myWebView2.setLongClickable(false);
-		myWebView2.setHapticFeedbackEnabled(false);
-		
-		//setWebviewVisibilitys(1);
-		
-		
+		setWebviewVisibilitys(1);
+  
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -207,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	public void setWebviewVisibilitys(int webviewid) {
+	    //TODO: load and unload pages
 		if (webviewid < 0 | webviewid > 2) return;
 		int[][] visibiltys = {
 				{View.GONE, View.GONE},
@@ -230,4 +202,36 @@ public class MainActivity extends AppCompatActivity {
 		}
 		return propertyValue;
 	}
+    
+    void setupWebView(WebView webView, int id) {
+        //TODO: read values from defaults and preferences manager and depending on id
+        boolean jsenabled = true;
+        boolean cacheenabled = false;
+        boolean hapticfeedbackenabled = false;
+        String url = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView1URL));
+        url = url == null ? StartPage1 : url;
+        setupWebView(webView, url, jsenabled, cacheenabled, hapticfeedbackenabled);
+    }
+    
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setupWebView(WebView webView, String url, boolean jsenabled, boolean cacheenabled, boolean hapticfeedbackenabled) {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(jsenabled);
+        webView.setWebViewClient(new WebViewClient());
+        webSettings.setAppCacheEnabled(cacheenabled);
+        webSettings.setCacheMode(cacheenabled ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_NO_CACHE);
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        webView.setLongClickable(false);
+        webView.setHapticFeedbackEnabled(hapticfeedbackenabled);
+        webView.loadUrl(url);
+    }
+    
+    void setwebviewpage(WebView webView, String url) {
+        webView.loadUrl(url);
+    }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="defaultWebView1URL">about:blank</string>
+    <bool name="defaultWebView1unload">false</bool>
+    <bool name="defaultWebView1js">true</bool>
+    <bool name="defaultWebView1cache">false</bool>
+    <bool name="defaultWebView1haptic">false</bool>
+    <string name="defaultWebView2URL">about:config</string>
+    <bool name="defaultWebView2unload">false</bool>
+    <bool name="defaultWebView2js">false</bool>
+    <bool name="defaultWebView2cache">false</bool>
+    <bool name="defaultWebView2haptic">false</bool>
+</resources>
