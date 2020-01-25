@@ -2,6 +2,8 @@
 <resources>
     <string name="buildpropprefix">com.JJ.weblauncher.</string>
 
+    <!-- TODO: add disable -->
+    <!-- TODO: add interactable -->
     <string name="WebView1URL">page1.url</string>
     <string name="WebView1unload">page1.unload</string>
     <string name="WebView1js">page1.js</string>
@@ -15,6 +17,7 @@
     <string name="WebView2haptic">page2.haptic</string>
     <string name="WebView2back">page2.back</string>
 
+    <string name="unloadURL">about:blank</string>
     <string name="WiFiAlwaysOn">wifi.keepon</string>
 
     <integer name="paniccount">10</integer>

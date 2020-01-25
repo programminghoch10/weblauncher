@@ -6,7 +6,7 @@
     <bool name="defaultWebView1cache">false</bool>
     <bool name="defaultWebView1haptic">false</bool>
     <bool name="defaultWebView1back">false</bool>
-    <string name="defaultWebView2URL">about:config</string>
+    <string name="defaultWebView2URL">about:blank</string>
     <bool name="defaultWebView2unload">false</bool>
     <bool name="defaultWebView2js">false</bool>
     <bool name="defaultWebView2cache">false</bool>

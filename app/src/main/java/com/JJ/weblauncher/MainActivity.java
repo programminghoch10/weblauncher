@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 	public static int buttoncount = 0;
 	static final String TAG = "MainActivity";
 	public static boolean WiFiCheckerEnabled = false;
+	private static int currentWebView = 0;
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 		//collect webview properties
 		sharedPreferences = getSharedPreferences(MainActivity.this.getString(R.string.sharedpreferencesfilename), MODE_PRIVATE);
 		collectProperties();
+		Log.d(TAG, "onCreate: " + sharedPreferences.getAll());
 		
 		//WebView Setup
 		WebView[] webviews = {
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
 		};
         for (int i = 0; i < webviews.length; i++) {
             WebView webView = webviews[i];
-            setupWebView(webView, i);
+            setupWebView(webView, i + 1);
         }
 		
-		setWebViewVisibilities(1);
+		switchWebView(1);
   
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -119,43 +121,35 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		WebView myWebView1 = findViewById(R.id.webview1);
 		WebView myWebView2 = findViewById(R.id.webview2);
-		String Page1 = sharedPreferences.getString(getResources().getString(R.string.WebView1URL), getResources().getString(R.string.defaultWebView1URL));
-		String Page2 = sharedPreferences.getString(getResources().getString(R.string.WebView2URL), getResources().getString(R.string.defaultWebView2URL));
-		//Log.i("weblauncher", "onKeyDown: Page1: "+Page1);
-		//Log.i("weblauncher", "onKeyDown: Page2: "+Page2);
-		
 		//button count: <0 is voldown and >0 is volup
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_VOLUME_DOWN:
-				if (buttoncount > 0) buttoncount = 0;
-				buttoncount--;
-				switch (buttoncount) {
-					default:
-						setWebViewVisibilities(2);
-						break;
-					case -2:
-						myWebView2.loadUrl(Page2);
-						break;
-					case -10:
-						finish();
-						break;
-				}
-				break;
 			case KeyEvent.KEYCODE_VOLUME_UP:
 				if (buttoncount < 0) buttoncount = 0;
 				buttoncount++;
 				switch (buttoncount) {
-					default:
-						setWebViewVisibilities(1);
-						myWebView2.loadUrl("about:blank");
+					case 1:
+						switchWebView(1);
 						break;
-					case 2:
-						myWebView1.loadUrl(Page1);
+					default:
+						myWebView1.reload();
+						break;
+				}
+				break;
+			case KeyEvent.KEYCODE_VOLUME_DOWN:
+				if (buttoncount > 0) buttoncount = 0;
+				buttoncount--;
+				switch (buttoncount) {
+					case -1:
+						switchWebView(2);
+						break;
+					default:
+						myWebView2.reload();
 						break;
 				}
 				break;
 			case KeyEvent.KEYCODE_BACK:
 				//currently unused
+				//TODO: add BACK
 				/*
 				if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView2.canGoBack()) {
 				   myWebView2.goBack();
@@ -167,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 				break;
 		}
 		if (Math.abs(buttoncount) >= MainActivity.this.getResources().getInteger(R.integer.paniccount)) {
+			Log.i(TAG, "onKeyDown: Panic Mode activated, restarting weblauncher");
 			buttoncount = 0;
 			//not optimal solution
 			Intent intent = getIntent();
@@ -177,24 +172,42 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}
 	
-	public void setWebViewVisibilities(int webviewid) {
-	    //TODO: load and unload pages
+	public void switchWebView(int webviewid) {
+		WebView webView1 = findViewById(R.id.webview1);
+		WebView webView2 = findViewById(R.id.webview2);
+		String webView1URL = sharedPreferences.getString("WebView" + 1 + "URL", getResources().getString(R.string.defaultWebView1URL));
+		boolean webView1unload = sharedPreferences.getBoolean("WebView" + 1 + "unload", getResources().getBoolean(R.bool.defaultWebView1unload));
+		String webView2URL = sharedPreferences.getString("WebView" + 2 + "URL", getResources().getString(R.string.defaultWebView2URL));
+		boolean webView2unload = sharedPreferences.getBoolean("WebView" + 2 + "unload", getResources().getBoolean(R.bool.defaultWebView2unload));
+		String unloadURL = getResources().getString(R.string.unloadURL);
 		if (webviewid < 0 | webviewid > 2) return;
 		int[][] visibiltys = {
 				{View.GONE, View.GONE},
 				{View.VISIBLE, View.INVISIBLE},
 				{View.INVISIBLE, View.VISIBLE},
 		};
-		findViewById(R.id.webview1).setVisibility(visibiltys[webviewid][0]);
-		findViewById(R.id.webview2).setVisibility(visibiltys[webviewid][1]);
+		webView1.setVisibility(visibiltys[webviewid][0]);
+		webView2.setVisibility(visibiltys[webviewid][1]);
+		switch (webviewid) {
+			case 1:
+				if (webView1unload) webView1.loadUrl(webView1URL);
+				if (webView2unload) webView2.loadUrl(unloadURL);
+			case 2:
+				if (webView1unload) webView1.loadUrl(unloadURL);
+				if (webView2unload) webView2.loadUrl(webView2URL);
+			case 0:
+			default:
+				if (webView1unload) webView1.loadUrl(unloadURL);
+				if (webView2unload) webView2.loadUrl(unloadURL);
+		}
 	}
 	
 	private void collectProperties() {
 		String prefix = getResources().getString(R.string.buildpropprefix);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		for (int i = 1; i <= 2; i++) {
-			String url = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + "URL", null, null)));
-			editor.putString("WebView" + i + "URL", url != null ? url : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + "URL", null, null)));
+			String url = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + "URL", "string", getPackageName())));
+			editor.putString("WebView" + i + "URL", url != null ? url : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + "URL", "string", getPackageName())));
 			
 			String[] values = {
 					"unload",
@@ -204,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
 					"back",
 			};
 			for (String value: values) {
-				String property = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + value, null, null)));
-				editor.putBoolean("WebView" + i + value, property != null ? Boolean.parseBoolean(property) : getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + i + value, null, null)));
+				String property = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + value, "string", getPackageName())));
+				editor.putBoolean("WebView" + i + value, property != null ? Boolean.parseBoolean(property) : getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + i + value, "bool", getPackageName())));
 			}
 		}
 		String WiFiCheckerEnabledProp = getSystemProperty(prefix + getResources().getString(R.string.WiFiAlwaysOn));
@@ -221,18 +234,18 @@ public class MainActivity extends AppCompatActivity {
 					new BufferedReader(new InputStreamReader(getPropProcess.getInputStream()));
 			propertyValue = osRes.readLine();
 			osRes.close();
-		} catch (Exception e) {
-			// Do nothing - can't get property value
-		}
+		} catch (Exception ignored) {} //Do nothing - can't get property value
+		propertyValue = "".equals(propertyValue) ? null : propertyValue;
 		return propertyValue;
 	}
     
     void setupWebView(WebView webView, int id) {
         //TODO: read values from defaults and preferences manager and depending on id
+		if (id < 1 | id > 2) return;
         boolean js = true;
         boolean cache = false;
         boolean hapticFeedback = false;
-        String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "URL", null, null)));
+        String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "URL", "string", getPackageName())));
         setupWebView(webView, url, js, cache, hapticFeedback);
     }
     
