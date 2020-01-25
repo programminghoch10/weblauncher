@@ -6,7 +6,8 @@ The download link is at the end of it.
 
 __This version is made only for rooted devices!__
 
-soon there will be a proper [no root version](https://github.com/programminghoch10/weblauncher/tree/norootversion)
+~~soon there will be a proper [no root version](https://github.com/programminghoch10/weblauncher/tree/norootversion)~~
+Soon it will be usable on unrooted devices too.
 
 
 ## Features:
@@ -16,20 +17,45 @@ soon there will be a proper [no root version](https://github.com/programminghoch
 - auto enables wifi if disabled
 - full screen
 - acts as app launcher to be the only usable application (kiosk mode)
-- pulls 2 website urls from build.prop (rooted device needed/subject to change)
-  - uses build.prop properties com.JJ.weblauncher.page1.url and com.JJ.weblauncher.page2.url
-  - if those aren't defined, a blank page is displayed (about:blank)
+- pulls website settings from build.prop (rooted device needed/subject to change)
   
 ## Install
 
 1. Install the app by downloading on target device or by pushing via adb
-1. set the build.prop parameters "com.JJ.weblauncher.page1.url" and "com.JJ.weblauncher.page2.url" to the wished 2 websites you want to be used (and reboot)
+1. set the [build.prop](https://www.droidviews.com/edit-build-prop-file-on-android/) parameters "com.JJ.weblauncher.page1.url" and "com.JJ.weblauncher.page2.url" to the wished 2 websites you want to be used (and reboot)
 1. test the app by launching the weblauncher through your launcher
 1. if everything works fine set weblauncher as default launcher
 1. for complete kiosk mode disable apps like system settings, camera and other apps which may be launched using lockscreen, keys or the notification bar using adb and the pm disable command
 1. _You're done!_
 
 [Download APK](https://github.com/programminghoch10/weblauncher/raw/rootedversion/app/release/app-release.apk)
+
+## build.prop parameters
+
+Website configuration parameters within the build.prop need to match this scheme: 
+
+`com.JJ.weblauncher.pageX.parameter`
+
+`pageX` can either be `page1` to modify the first website or `page2` to modify the second website.
+
+`parameter` can be one of the following: 
+
+Parameter | Type | Description | Default Value
+--------- | ---- | ----------- | -------------
+URL     | String | The URL of the Website shown | about:blank
+unload  | Boolean| Wether the Website should be unloaded, when the other page is shown (it will reload to URL when its visible again) | false
+js      | Boolean| Wether to enable JavaScript on the Website | true
+cache   | Boolean| Wether to enable Caching for the Website (Recommended: false) | false
+haptic  | Boolean| Wether Haptic Feedback is enabled on the Website | false
+back    | Boolean| Wether the back button can be used on the Website | false
+
+
+Other parameters: 
+
+Parameter | Type | Description | Default Value
+--------- | ---- | ----------- | -------------
+com.JJ.weblauncher.WiFi.keepon | Boolean | Wether app will reactivate WiFi, when disabled by user (_only enabled, when weblauncher is set as android home launcher_) | false
+
 
 ## How to properly make a kiosk
 
