@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             setupWebView(webView, i + 1);
         }
 		
-		switchWebView(1);
+		switchWebView(0);
   
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -242,11 +242,11 @@ public class MainActivity extends AppCompatActivity {
     void setupWebView(WebView webView, int id) {
         //TODO: read values from defaults and preferences manager and depending on id
 		if (id < 1 | id > 2) return;
-        boolean js = true;
-        boolean cache = false;
-        boolean hapticFeedback = false;
+        boolean js = sharedPreferences.getBoolean("WebView" + id + "js", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "js", "bool", getPackageName())));
+        boolean cache = sharedPreferences.getBoolean("WebView" + id + "cache", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "cache", "bool", getPackageName())));
+        boolean haptic = sharedPreferences.getBoolean("WebView" + id + "haptic", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "haptic", "bool", getPackageName())));
         String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "URL", "string", getPackageName())));
-        setupWebView(webView, url, js, cache, hapticFeedback);
+        setupWebView(webView, url, js, cache, haptic);
     }
     
     @SuppressLint("SetJavaScriptEnabled")
