@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,12 +20,8 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 	
-	SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.this.getString(R.string.sharedpreferencesfilename), MODE_PRIVATE);
+	SharedPreferences sharedPreferences;
 	
-	//static String StartPage1 = "http://google.de";
-	//static String StartPage2 = "http://example.com";
-	static String StartPage1 = "about:blank";
-	static String StartPage2 = "about:blank";
 	public static int buttoncount = 0;
 	static final String TAG = "MainActivity";
 	public static boolean WiFiCheckerEnabled = false;
@@ -42,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		//collect webview properties
+		sharedPreferences = getSharedPreferences(MainActivity.this.getString(R.string.sharedpreferencesfilename), MODE_PRIVATE);
+		collectProperties();
+		
 		//WebView Setup
 		WebView[] webviews = {
 				findViewById(R.id.webview1),
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             setupWebView(webView, i);
         }
 		
-		setWebviewVisibilitys(1);
+		setWebViewVisibilities(1);
   
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -120,12 +119,8 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		WebView myWebView1 = findViewById(R.id.webview1);
 		WebView myWebView2 = findViewById(R.id.webview2);
-		String Page1 = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView1URL));
-		String Page2 = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView2URL));
-		if (Page1 == null) {Page1 = "";}
-		if (Page2 == null) {Page2 = "";}
-		if (Page1.equals("")) Page1 = StartPage1;
-		if (Page2.equals("")) Page2 = StartPage2;
+		String Page1 = sharedPreferences.getString(getResources().getString(R.string.WebView1URL), getResources().getString(R.string.defaultWebView1URL));
+		String Page2 = sharedPreferences.getString(getResources().getString(R.string.WebView2URL), getResources().getString(R.string.defaultWebView2URL));
 		//Log.i("weblauncher", "onKeyDown: Page1: "+Page1);
 		//Log.i("weblauncher", "onKeyDown: Page2: "+Page2);
 		
@@ -136,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 				buttoncount--;
 				switch (buttoncount) {
 					default:
-						setWebviewVisibilitys(2);
+						setWebViewVisibilities(2);
 						break;
 					case -2:
 						myWebView2.loadUrl(Page2);
@@ -151,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 				buttoncount++;
 				switch (buttoncount) {
 					default:
-						setWebviewVisibilitys(1);
+						setWebViewVisibilities(1);
 						myWebView2.loadUrl("about:blank");
 						break;
 					case 2:
@@ -182,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}
 	
-	public void setWebviewVisibilitys(int webviewid) {
+	public void setWebViewVisibilities(int webviewid) {
 	    //TODO: load and unload pages
 		if (webviewid < 0 | webviewid > 2) return;
 		int[][] visibiltys = {
@@ -192,6 +187,28 @@ public class MainActivity extends AppCompatActivity {
 		};
 		findViewById(R.id.webview1).setVisibility(visibiltys[webviewid][0]);
 		findViewById(R.id.webview2).setVisibility(visibiltys[webviewid][1]);
+	}
+	
+	private void collectProperties() {
+		String prefix = getResources().getString(R.string.buildpropprefix);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		for (int i = 1; i <= 2; i++) {
+			String url = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + "URL", null, null)));
+			editor.putString("WebView" + i + "URL", url != null ? url : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + "URL", null, null)));
+			
+			String[] values = {
+					"unload",
+					"js",
+					"cache",
+					"haptic",
+					"back",
+			};
+			for (String value: values) {
+				String property = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + value, null, null)));
+				editor.putBoolean("WebView" + i + value, property != null ? Boolean.parseBoolean(property) : getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + i + value, null, null)));
+			}
+		}
+		editor.apply();
 	}
 	
 	private String getSystemProperty(String propertyName) {
@@ -210,12 +227,11 @@ public class MainActivity extends AppCompatActivity {
     
     void setupWebView(WebView webView, int id) {
         //TODO: read values from defaults and preferences manager and depending on id
-        boolean jsenabled = true;
-        boolean cacheenabled = false;
-        boolean hapticfeedbackenabled = false;
-        String url = getSystemProperty(MainActivity.this.getResources().getString(R.string.WebView1URL));
-        url = url == null ? StartPage1 : url;
-        setupWebView(webView, url, jsenabled, cacheenabled, hapticfeedbackenabled);
+        boolean js = true;
+        boolean cache = false;
+        boolean hapticFeedback = false;
+        String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "URL", null, null)));
+        setupWebView(webView, url, js, cache, hapticFeedback);
     }
     
     @SuppressLint("SetJavaScriptEnabled")
