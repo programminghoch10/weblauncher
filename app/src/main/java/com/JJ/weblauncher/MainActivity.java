@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		WebView myWebView1 = findViewById(R.id.webview1);
-		WebView myWebView2 = findViewById(R.id.webview2);
+		WebView webView1 = findViewById(R.id.webview1);
+		WebView webView2 = findViewById(R.id.webview2);
 		//button count: <0 is voldown and >0 is volup
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_VOLUME_UP:
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 						switchWebView(1);
 						break;
 					default:
-						myWebView1.reload();
+						switchToDefaultWebsite(webView1, 1);
 						break;
 				}
 				break;
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 						switchWebView(2);
 						break;
 					default:
-						myWebView2.reload();
+						switchToDefaultWebsite(webView2, 2);
 						break;
 				}
 				break;
@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
 				//currently unused
 				//TODO: add BACK
 				/*
-				if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView2.canGoBack()) {
-				   myWebView2.goBack();
+				if ((keyCode == KeyEvent.KEYCODE_BACK) && webView2.canGoBack()) {
+				   webView2.goBack();
 				   return true;
 				}
 				*/
@@ -200,6 +200,12 @@ public class MainActivity extends AppCompatActivity {
 				if (webView1unload) webView1.loadUrl(unloadURL);
 				if (webView2unload) webView2.loadUrl(unloadURL);
 		}
+		currentWebView = webviewid;
+	}
+	
+	public void switchToDefaultWebsite(WebView webView, int id) {
+		String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(R.string.defaultWebView1URL));
+		webView.loadUrl(url);
 	}
 	
 	private void collectProperties() {
