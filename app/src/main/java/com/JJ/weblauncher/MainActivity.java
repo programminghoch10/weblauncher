@@ -208,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
 				editor.putBoolean("WebView" + i + value, property != null ? Boolean.parseBoolean(property) : getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + i + value, null, null)));
 			}
 		}
+		String WiFiCheckerEnabledProp = getSystemProperty(prefix + getResources().getString(R.string.WiFiAlwaysOn));
+		WiFiCheckerEnabled = WiFiCheckerEnabledProp != null ? Boolean.parseBoolean(WiFiCheckerEnabledProp) : getResources().getBoolean(R.bool.defaultWiFiAlwaysOn);
 		editor.apply();
 	}
 	
