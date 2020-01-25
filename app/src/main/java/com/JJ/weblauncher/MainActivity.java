@@ -148,14 +148,13 @@ public class MainActivity extends AppCompatActivity {
 				}
 				break;
 			case KeyEvent.KEYCODE_BACK:
-				//currently unused
-				//TODO: add BACK
-				/*
-				if ((keyCode == KeyEvent.KEYCODE_BACK) && webView2.canGoBack()) {
-				   webView2.goBack();
+				WebView webView = currentWebView == 1 ? webView1 : webView2;
+				boolean backEnabled = sharedPreferences.getBoolean("WebView" + currentWebView + "back", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + currentWebView + "back", "bool", getPackageName())));
+				if (webView.canGoBack() && backEnabled) {
+				   webView.goBack();
 				   return true;
 				}
-				*/
+				break;
 			default:
 				onWindowFocusChanged(true);
 				break;
