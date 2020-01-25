@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">weblauncher</string>
     <string name="intro_text">by programminghoch10</string>
+    <string name="sharedpreferencesfilename">config</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.JJ.weblauncher;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,10 @@ public class WifiChecker extends BroadcastReceiver {
 	
 	static final String TAG = "WifiChecker";
 	
+	@SuppressLint("UnsafeProtectedBroadcastReceiver") //TODO: check broadcast
 	public void onReceive(Context context, Intent intent) {
+		boolean enabled = MainActivity.WiFiCheckerEnabled;
+		if (!enabled) return;
 		try {
 			PackageManager localPackageManager = context.getPackageManager();
 			Intent homeintent = new Intent("android.intent.action.MAIN");

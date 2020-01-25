@@ -3,9 +3,10 @@ package com.JJ.weblauncher;
 import android.annotation.SuppressLint;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,12 +21,15 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 	
+	SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.this.getString(R.string.sharedpreferencesfilename), MODE_PRIVATE);
+	
 	//static String StartPage1 = "http://google.de";
 	//static String StartPage2 = "http://example.com";
 	static String StartPage1 = "about:blank";
 	static String StartPage2 = "about:blank";
 	public static int buttoncount = 0;
 	static final String TAG = "MainActivity";
+	public static boolean WiFiCheckerEnabled = false;
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override

@@ -7,11 +7,15 @@
     <string name="WebView1js">page1.js</string>
     <string name="WebView1cache">page1.cache</string>
     <string name="WebView1haptic">page1.haptic</string>
+    <string name="WebView1back">page1.back</string>
     <string name="WebView2URL">page2.url</string>
     <string name="WebView2unload">page2.unload</string>
     <string name="WebView2js">page2.js</string>
     <string name="WebView2cache">page2.cache</string>
     <string name="WebView2haptic">page2.haptic</string>
+    <string name="WebView2back">page2.back</string>
+
+    <string name="WiFiAlwaysOn">wifi.keepon</string>
 
     <integer name="paniccount">10</integer>
 </resources>
