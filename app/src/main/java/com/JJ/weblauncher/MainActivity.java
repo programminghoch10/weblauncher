@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 				break;
 		}
 		if (Math.abs(buttoncount) >= MainActivity.this.getResources().getInteger(R.integer.paniccount)) {
+			buttoncount = 0;
 			//not optimal solution
 			Intent intent = getIntent();
 			finish();
