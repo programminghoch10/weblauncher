@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             setupWebView(webView, i + 1);
         }
 		
-		switchWebView(0);
+        int startMode = sharedPreferences.getInt("StartMode", getResources().getInteger(R.integer.defaultStartMode));
+        switchWebView(startMode);
   
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -156,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
 				}
 				break;
 			default:
-				onWindowFocusChanged(true);
 				break;
 		}
+		onWindowFocusChanged(true);
 		if (Math.abs(buttoncount) >= MainActivity.this.getResources().getInteger(R.integer.paniccount)) {
 			Log.i(TAG, "onKeyDown: Panic Mode activated, restarting weblauncher");
 			buttoncount = 0;
@@ -228,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
 		}
 		String WiFiCheckerEnabledProp = getSystemProperty(prefix + getResources().getString(R.string.WiFiAlwaysOn));
 		WiFiCheckerEnabled = WiFiCheckerEnabledProp != null ? Boolean.parseBoolean(WiFiCheckerEnabledProp) : getResources().getBoolean(R.bool.defaultWiFiAlwaysOn);
+		String startMode = getSystemProperty(prefix + getResources().getString(R.string.StartMode));
+		editor.putInt("StartMode", startMode != null ? Integer.parseInt(startMode) : getResources().getInteger(R.integer.defaultStartMode));
 		editor.apply();
 	}
 	

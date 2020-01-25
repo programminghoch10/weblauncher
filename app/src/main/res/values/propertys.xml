@@ -17,8 +17,9 @@
     <string name="WebView2haptic">page2.haptic</string>
     <string name="WebView2back">page2.back</string>
 
-    <string name="unloadURL">about:blank</string>
     <string name="WiFiAlwaysOn">wifi.keepon</string>
+    <string name="StartMode">startpage</string>
 
+    <string name="unloadURL">about:blank</string>
     <integer name="paniccount">10</integer>
 </resources>
