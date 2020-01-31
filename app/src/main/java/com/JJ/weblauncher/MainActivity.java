@@ -179,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
 		String webView2URL = sharedPreferences.getString("WebView" + 2 + "URL", getResources().getString(R.string.defaultWebView2URL));
 		boolean webView2unload = sharedPreferences.getBoolean("WebView" + 2 + "unload", getResources().getBoolean(R.bool.defaultWebView2unload));
 		boolean webView2enabled = sharedPreferences.getBoolean("WebView" + 2 + "enabled", getResources().getBoolean(R.bool.defaultWebView2enabled));
+		boolean webView1interact = sharedPreferences.getBoolean("WebView" + 1 + "interact", getResources().getBoolean(R.bool.defaultWebView1interact));
+		boolean webView2interact = sharedPreferences.getBoolean("WebView" + 2 + "interact", getResources().getBoolean(R.bool.defaultWebView2interact));
+		View overlay = findViewById(R.id.overlay);
 		String unloadURL = getResources().getString(R.string.unloadURL);
 		if (webviewid < 0 | webviewid > 2) return;
 		if (webviewid == 1 & !webView1enabled) return;
@@ -194,9 +197,21 @@ public class MainActivity extends AppCompatActivity {
 			case 1:
 				if (webView1unload) webView1.loadUrl(webView1URL);
 				if (webView2unload) webView2.loadUrl(unloadURL);
+				if (webView1interact) {
+					overlay.setVisibility(View.GONE);
+				} else {
+					overlay.setVisibility(View.VISIBLE);
+				}
+				break;
 			case 2:
 				if (webView1unload) webView1.loadUrl(unloadURL);
 				if (webView2unload) webView2.loadUrl(webView2URL);
+				if (webView2interact) {
+					overlay.setVisibility(View.GONE);
+				} else {
+					overlay.setVisibility(View.VISIBLE);
+				}
+				break;
 			case 0:
 			default:
 				if (webView1unload) webView1.loadUrl(unloadURL);
@@ -216,10 +231,10 @@ public class MainActivity extends AppCompatActivity {
 		for (int i = 1; i <= 2; i++) {
 			String url = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + "URL", "string", getPackageName())));
 			editor.putString("WebView" + i + "URL", url != null ? url : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + "URL", "string", getPackageName())));
-			
 			String[] values = {
 					"enabled",
 					"unload",
+					"interact",
 					"js",
 					"cache",
 					"haptic",

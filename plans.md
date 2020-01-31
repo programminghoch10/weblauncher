@@ -6,4 +6,4 @@
 * add auto refresh on internet back
 * add auto refresh on timer
 * add auto connect to wifi
-* add possibility to disable interaction
+* add possibility to disable screensaver

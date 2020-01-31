@@ -3,6 +3,7 @@
     <bool name="defaultWebView1enabled">true</bool>
     <string name="defaultWebView1URL">about:blank</string>
     <bool name="defaultWebView1unload">false</bool>
+    <bool name="defaultWebView1interact">false</bool>
     <bool name="defaultWebView1js">true</bool>
     <bool name="defaultWebView1cache">false</bool>
     <bool name="defaultWebView1haptic">false</bool>
@@ -10,6 +11,7 @@
     <bool name="defaultWebView2enabled">true</bool>
     <string name="defaultWebView2URL">about:blank</string>
     <bool name="defaultWebView2unload">false</bool>
+    <bool name="defaultWebView2interact">true</bool>
     <bool name="defaultWebView2js">false</bool>
     <bool name="defaultWebView2cache">false</bool>
     <bool name="defaultWebView2haptic">false</bool>
