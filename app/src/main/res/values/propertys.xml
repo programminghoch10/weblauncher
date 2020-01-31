@@ -22,6 +22,7 @@
 
     <string name="WiFiAlwaysOn">wifi.keepon</string>
     <string name="StartMode">startpage</string>
+    <string name="KeepScreenOn">display.keepon</string>
 
     <string name="unloadURL">about:blank</string>
     <integer name="paniccount">10</integer>

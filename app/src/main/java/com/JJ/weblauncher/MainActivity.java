@@ -55,6 +55,16 @@ public class MainActivity extends AppCompatActivity {
 		int startMode = sharedPreferences.getInt("StartMode", getResources().getInteger(R.integer.defaultStartMode));
 		switchWebView(startMode);
 		
+		boolean keepScreenOn = sharedPreferences.getBoolean("KeepScreenOn", getResources().getBoolean(R.bool.defaultKeepScreenOn));
+		View[] keepScreenOnViews = {
+				findViewById(R.id.webview1),
+				findViewById(R.id.webview2),
+				findViewById(R.id.overlay),
+		};
+		for (View view : keepScreenOnViews) {
+			view.setKeepScreenOn(keepScreenOn);
+		}
+		
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -216,6 +226,8 @@ public class MainActivity extends AppCompatActivity {
 			default:
 				if (webView1unload) webView1.loadUrl(unloadURL);
 				if (webView2unload) webView2.loadUrl(unloadURL);
+				overlay.setVisibility(View.VISIBLE);
+				break;
 		}
 		currentWebView = webviewid;
 	}
@@ -249,6 +261,8 @@ public class MainActivity extends AppCompatActivity {
 		WiFiCheckerEnabled = WiFiCheckerEnabledProp != null ? Boolean.parseBoolean(WiFiCheckerEnabledProp) : getResources().getBoolean(R.bool.defaultWiFiAlwaysOn);
 		String startMode = getSystemProperty(prefix + getResources().getString(R.string.StartMode));
 		editor.putInt("StartMode", startMode != null ? Integer.parseInt(startMode) : getResources().getInteger(R.integer.defaultStartMode));
+		String keepScreenOn = getSystemProperty(prefix + getResources().getString(R.string.KeepScreenOn));
+		editor.putBoolean("keepScreenOn", keepScreenOn != null ? Boolean.parseBoolean(keepScreenOn) : getResources().getBoolean(R.bool.defaultKeepScreenOn));
 		editor.apply();
 	}
 	

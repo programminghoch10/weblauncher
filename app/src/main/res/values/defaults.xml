@@ -19,4 +19,5 @@
 
     <bool name="defaultWiFiAlwaysOn">true</bool>
     <integer name="defaultStartMode">0</integer>
+    <bool name="defaultKeepScreenOn">true</bool>
 </resources>

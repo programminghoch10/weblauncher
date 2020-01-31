@@ -56,8 +56,9 @@ Other parameters:
 
 Parameter | Type | Description | Default Value
 --------- | ---- | ----------- | -------------
-com.JJ.weblauncher.WiFi.keepon  | Boolean | Wether app will reactivate WiFi, when disabled by user (_only enabled, when weblauncher is set as android home launcher_) | false
-com.JJ.weblauncher.startpage    | Integer | Which page to display when starting: 0 = no page, 1 = Page1, 2 = Page2 | 0
+com.JJ.weblauncher.WiFi.keepon      | Boolean | Wether app will reactivate WiFi, when disabled by user (_only enabled, when weblauncher is set as android home launcher_) | false
+com.JJ.weblauncher.startpage        | Integer | Which page to display when starting: 0 = no page, 1 = Page1, 2 = Page2 | 0
+com.JJ.weblauncher.display.keepon   | Boolean | Wether to keep screen on | false
 
 
 ## How to properly make a kiosk
