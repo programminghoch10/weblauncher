@@ -2,14 +2,15 @@
 <resources>
     <string name="buildpropprefix">com.JJ.weblauncher.</string>
 
-    <!-- TODO: add disable -->
     <!-- TODO: add interactable -->
+    <string name="WebView1enabled">page1.enabled</string>
     <string name="WebView1URL">page1.url</string>
     <string name="WebView1unload">page1.unload</string>
     <string name="WebView1js">page1.js</string>
     <string name="WebView1cache">page1.cache</string>
     <string name="WebView1haptic">page1.haptic</string>
     <string name="WebView1back">page1.back</string>
+    <string name="WebView2enabled">page2.enabled</string>
     <string name="WebView2URL">page2.url</string>
     <string name="WebView2unload">page2.unload</string>
     <string name="WebView2js">page2.js</string>

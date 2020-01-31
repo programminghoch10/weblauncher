@@ -175,10 +175,14 @@ public class MainActivity extends AppCompatActivity {
 		WebView webView2 = findViewById(R.id.webview2);
 		String webView1URL = sharedPreferences.getString("WebView" + 1 + "URL", getResources().getString(R.string.defaultWebView1URL));
 		boolean webView1unload = sharedPreferences.getBoolean("WebView" + 1 + "unload", getResources().getBoolean(R.bool.defaultWebView1unload));
+		boolean webView1enabled = sharedPreferences.getBoolean("WebView" + 1 + "enabled", getResources().getBoolean(R.bool.defaultWebView1enabled));
 		String webView2URL = sharedPreferences.getString("WebView" + 2 + "URL", getResources().getString(R.string.defaultWebView2URL));
 		boolean webView2unload = sharedPreferences.getBoolean("WebView" + 2 + "unload", getResources().getBoolean(R.bool.defaultWebView2unload));
+		boolean webView2enabled = sharedPreferences.getBoolean("WebView" + 2 + "enabled", getResources().getBoolean(R.bool.defaultWebView2enabled));
 		String unloadURL = getResources().getString(R.string.unloadURL);
 		if (webviewid < 0 | webviewid > 2) return;
+		if (webviewid == 1 & !webView1enabled) return;
+		if (webviewid == 2 & !webView2enabled) return;
 		int[][] visibiltys = {
 				{View.GONE, View.GONE},
 				{View.VISIBLE, View.INVISIBLE},
@@ -214,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.putString("WebView" + i + "URL", url != null ? url : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + "URL", "string", getPackageName())));
 			
 			String[] values = {
+					"enabled",
 					"unload",
 					"js",
 					"cache",
@@ -248,11 +253,12 @@ public class MainActivity extends AppCompatActivity {
 	
 	private void setupWebView(WebView webView, int id) {
 		if (id < 1 | id > 2) return;
+		boolean enabled = sharedPreferences.getBoolean("WebView" + id + "enabled", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "enabled", "bool", getPackageName())));
 		boolean js = sharedPreferences.getBoolean("WebView" + id + "js", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "js", "bool", getPackageName())));
 		boolean cache = sharedPreferences.getBoolean("WebView" + id + "cache", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "cache", "bool", getPackageName())));
 		boolean haptic = sharedPreferences.getBoolean("WebView" + id + "haptic", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "haptic", "bool", getPackageName())));
 		String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "URL", "string", getPackageName())));
-		setupWebView(webView, url, js, cache, haptic);
+		if (enabled) setupWebView(webView, url, js, cache, haptic);
 	}
 	
 	@SuppressLint("SetJavaScriptEnabled")

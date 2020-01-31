@@ -42,6 +42,7 @@ Website configuration parameters within the build.prop need to match this scheme
 
 Parameter | Type | Description | Default Value
 --------- | ---- | ----------- | -------------
+enabled | Boolean| Wether this page is enabled | true
 URL     | String | The URL of the Website shown | about:blank
 unload  | Boolean| Wether the Website should be unloaded, when the other page is shown (it will reload to URL when its visible again) | false
 js      | Boolean| Wether to enable JavaScript on the Website | true
