@@ -183,13 +183,13 @@ public class MainActivity extends AppCompatActivity {
 		if (webviewid < 0 | webviewid > 2) return;
 		if (webviewid == 1 & !webView1enabled) return;
 		if (webviewid == 2 & !webView2enabled) return;
-		int[][] visibiltys = {
+		int[][] visibilities = {
 				{View.GONE, View.GONE},
 				{View.VISIBLE, View.INVISIBLE},
 				{View.INVISIBLE, View.VISIBLE},
 		};
-		webView1.setVisibility(visibiltys[webviewid][0]);
-		webView2.setVisibility(visibiltys[webviewid][1]);
+		webView1.setVisibility(visibilities[webviewid][0]);
+		webView2.setVisibility(visibilities[webviewid][1]);
 		switch (webviewid) {
 			case 1:
 				if (webView1unload) webView1.loadUrl(webView1URL);
