@@ -17,7 +17,7 @@
     <bool name="defaultWebView2haptic">false</bool>
     <bool name="defaultWebView2back">false</bool>
 
-    <bool name="defaultWiFiAlwaysOn">true</bool>
+    <bool name="defaultWiFiAlwaysOn">false</bool>
     <integer name="defaultStartMode">0</integer>
     <bool name="defaultKeepScreenOn">true</bool>
 </resources>
