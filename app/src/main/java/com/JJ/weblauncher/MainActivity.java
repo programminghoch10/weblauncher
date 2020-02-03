@@ -169,12 +169,13 @@ public class MainActivity extends AppCompatActivity {
 		}
 		onWindowFocusChanged(true);
 		if (Math.abs(buttoncount) >= MainActivity.this.getResources().getInteger(R.integer.paniccount)) {
-			Log.i(TAG, "onKeyDown: Panic Mode activated, restarting weblauncher");
+			Log.i(TAG, "onKeyDown: Panic Mode activated, stopping weblauncher");
 			buttoncount = 0;
 			//not optimal solution
-			Intent intent = getIntent();
+			//Intent intent = getIntent();
 			finish();
-			startActivity(intent);
+			//startActivity(intent);
+			// disabling restart because it creates a new activity instead restarting the current one
 		}
 		Log.d(TAG, "onKeyDown: buttoncount is " + buttoncount);
 		return true;
