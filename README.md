@@ -60,6 +60,15 @@ com.JJ.weblauncher.WiFi.keepon      | Boolean | Wether app will reactivate WiFi,
 com.JJ.weblauncher.startpage        | Integer | Which page to display when starting: 0 = no page, 1 = Page1, 2 = Page2 | 0
 com.JJ.weblauncher.display.keepon   | Boolean | Wether to keep screen on | false
 
+## Problems
+
+I always try to keep everything working flawlessly.
+But sometimes it's just not in my hands.
+
+* Android 5 might have issues regarding JS processing
+
+If you find other issues (_not listed here_) I'll be happy to take a look at them.
+Please report them in this repo's issues.
 
 ## How to properly make a kiosk
 
