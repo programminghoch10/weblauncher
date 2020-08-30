@@ -8,6 +8,7 @@
     <bool name="defaultWebView1cache">false</bool>
     <bool name="defaultWebView1haptic">false</bool>
     <bool name="defaultWebView1back">false</bool>
+    <string name="defaultWebView1useragent" />
 
     <bool name="defaultWebView2enabled">true</bool>
     <string name="defaultWebView2URL">about:blank</string>
@@ -17,6 +18,7 @@
     <bool name="defaultWebView2cache">false</bool>
     <bool name="defaultWebView2haptic">false</bool>
     <bool name="defaultWebView2back">false</bool>
+    <string name="defaultWebView2useragent" />
 
     <bool name="defaultWiFiAlwaysOn">false</bool>
     <integer name="defaultStartMode">0</integer>

@@ -43,13 +43,14 @@ Website configuration parameters within the build.prop need to match this scheme
 Parameter | Type | Description | Default Value
 --------- | ---- | ----------- | -------------
 enabled | Boolean| Wether this page is enabled | true
-url     | String | The URL of the Website shown, remember the leading `http://` | about:blank
-interact| Boolean| Wether this page is interactable | true
-unload  | Boolean| Wether the Website should be unloaded, when the other page is shown (it will reload to URL when its visible again) | false
-js      | Boolean| Wether to enable JavaScript on the Website | true
-cache   | Boolean| Wether to enable Caching for the Website (Recommended: false) | false
-haptic  | Boolean| Wether Haptic Feedback is enabled on the Website | false
-back    | Boolean| Wether the back button can be used on the Website | false
+url | String | The URL of the Website shown, remember the leading `http://` | about:blank
+interact | Boolean| Wether this page is interactable | true
+unload | Boolean| Wether the Website should be unloaded, when the other page is shown (it will reload to URL when its visible again) | false
+js | Boolean| Wether to enable JavaScript on the Website | true
+cache | Boolean| Wether to enable Caching for the Website (Recommended: false) | false
+haptic | Boolean| Wether Haptic Feedback is enabled on the Website | false
+back | Boolean| Wether the back button can be used on the Website | false
+useragent | String | The useragent string weblauncher should report to the website | (device default)
 
 
 Other parameters: 

@@ -10,6 +10,7 @@
     <string name="WebView1cache">page1.cache</string>
     <string name="WebView1haptic">page1.haptic</string>
     <string name="WebView1back">page1.back</string>
+    <string name="WebView1useragent">page1.useragent</string>
     
     <string name="WebView2enabled">page2.enabled</string>
     <string name="WebView2URL">page2.url</string>
@@ -19,6 +20,7 @@
     <string name="WebView2cache">page2.cache</string>
     <string name="WebView2haptic">page2.haptic</string>
     <string name="WebView2back">page2.back</string>
+    <string name="WebView2useragent">page2.useragent</string>
 
     <string name="WiFiAlwaysOn">wifi.keepon</string>
     <string name="StartMode">startpage</string>

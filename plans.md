@@ -6,3 +6,4 @@
 * add auto refresh on internet back
 * add auto refresh on timer
 * add auto connect to wifi
+* add overrideurlloading to disable other sites or disable navigating

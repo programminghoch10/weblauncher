@@ -242,18 +242,24 @@ public class MainActivity extends AppCompatActivity {
 		String prefix = getResources().getString(R.string.buildpropprefix);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		for (int i = 1; i <= 2; i++) {
-			String url = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + "URL", "string", getPackageName())));
-			editor.putString("WebView" + i + "URL", url != null ? url : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + "URL", "string", getPackageName())));
-			String[] values = {
+			String[] string_values = {
+					"URL",
+					"useragent"
+			};
+			for (String value : string_values) {
+				String property = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + "URL", "string", getPackageName())));
+				editor.putString("WebView" + i + value, property != null ? property : getResources().getString(getResources().getIdentifier("default" + "WebView" + i + value, "string", getPackageName())));
+			}
+			String[] bool_values = {
 					"enabled",
 					"unload",
 					"interact",
 					"js",
 					"cache",
 					"haptic",
-					"back",
+					"back"
 			};
-			for (String value : values) {
+			for (String value : bool_values) {
 				String property = getSystemProperty(prefix + getResources().getString(getResources().getIdentifier("WebView" + i + value, "string", getPackageName())));
 				editor.putBoolean("WebView" + i + value, property != null ? Boolean.parseBoolean(property) : getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + i + value, "bool", getPackageName())));
 			}
@@ -288,16 +294,18 @@ public class MainActivity extends AppCompatActivity {
 		boolean cache = sharedPreferences.getBoolean("WebView" + id + "cache", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "cache", "bool", getPackageName())));
 		boolean haptic = sharedPreferences.getBoolean("WebView" + id + "haptic", getResources().getBoolean(getResources().getIdentifier("default" + "WebView" + id + "haptic", "bool", getPackageName())));
 		String url = sharedPreferences.getString("WebView" + id + "URL", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "URL", "string", getPackageName())));
-		if (enabled) setupWebView(webView, url, js, cache, haptic);
+		String useragent = sharedPreferences.getString("WebView" + id + "useragent", getResources().getString(getResources().getIdentifier("default" + "WebView" + id + "useragent", "string", getPackageName())));
+		if (enabled) setupWebView(webView, url, js, cache, haptic, useragent);
 	}
 	
 	@SuppressLint("SetJavaScriptEnabled")
-	private void setupWebView(WebView webView, String url, boolean jsenabled, boolean cacheenabled, boolean hapticfeedbackenabled) {
+	private void setupWebView(WebView webView, String url, boolean jsenabled, boolean cacheenabled, boolean hapticfeedbackenabled, String useragent) {
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(jsenabled);
 		webView.setWebViewClient(new WebViewClient());
 		webSettings.setAppCacheEnabled(cacheenabled);
 		webSettings.setCacheMode(cacheenabled ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_NO_CACHE);
+		if (!useragent.isEmpty()) webSettings.setUserAgentString(useragent);
 		webView.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
