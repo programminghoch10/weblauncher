@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 		
 		boolean keepScreenOn = sharedPreferences.getBoolean("KeepScreenOn", getResources().getBoolean(R.bool.defaultKeepScreenOn));
 		View[] keepScreenOnViews = {
-				findViewById(R.id.webview1),
-				findViewById(R.id.webview2),
+				webviews[0],
+				webviews[1],
 				findViewById(R.id.overlay),
 		};
 		for (View view : keepScreenOnViews) {
