@@ -6,7 +6,6 @@ The download link is at the end of it.
 
 __This version is made only for rooted devices!__
 
-~~soon there will be a proper [no root version](https://github.com/programminghoch10/weblauncher/tree/norootversion)~~
 Soon it will be usable on unrooted devices too.
 
 
