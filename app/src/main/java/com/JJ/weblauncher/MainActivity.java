@@ -302,7 +302,6 @@ public class MainActivity extends Activity {
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(jsenabled);
 		webView.setWebViewClient(new WebViewClient());
-		webSettings.setAppCacheEnabled(cacheenabled);
 		webSettings.setCacheMode(cacheenabled ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_NO_CACHE);
 		if (!useragent.isEmpty()) webSettings.setUserAgentString(useragent);
 		webView.setOnLongClickListener(new View.OnLongClickListener() {
