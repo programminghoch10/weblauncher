@@ -2,4 +2,20 @@
     <string name="app_name">weblauncher</string>
     <string name="intro_text">by programminghoch10</string>
     <string name="sharedpreferencesfilename">config</string>
+    <string name="pageEnabled">Enabled</string>
+    <string name="pageInteract">Interactable</string>
+    <string name="pageUrlHint">URL</string>
+    <string name="pageUnload">Unload</string>
+    <string name="pageJavaScript">JavaScript</string>
+    <string name="pageCache">Cache enabled</string>
+    <string name="pageHaptic">Haptic Feedback</string>
+    <string name="pageBack">Back Gesture allowed</string>
+    <string name="pageUserAgent">UserAgent</string>
+    <string name="settingsStartPageHeader">Start page</string>
+    <string name="settingsStartPageTitle">Title Screen</string>
+    <string name="settingsStartPage1">Web Page 1</string>
+    <string name="settingsStartPage2">Web Page 2</string>
+    <string name="settingsEditPageHeader">Configure Web Pages</string>
+    <string name="settingsKeepWifiOn">Keep WiFi on</string>
+    <string name="settingsKeepDisplayOn">Keep Display On</string>
 </resources>

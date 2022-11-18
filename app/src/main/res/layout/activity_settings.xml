@@ -11,39 +11,64 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/settingsEditPageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settingsEditPageHeader" />
+
         <Button
             android:id="@+id/editPage1Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/settingsStartPage1" />
 
         <Button
             android:id="@+id/editPage2Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/settingsStartPage2" />
 
         <RadioGroup
+            android:id="@+id/settingsStartPageGroup"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@+id/radioButton"
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="@string/settingsStartPageHeader" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/settingsStartPageTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="@string/settingsStartPageTitle" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/settingsStartPage1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="RadioButton" />
+                android:text="@string/settingsStartPage1" />
+
+            <RadioButton
+                android:id="@+id/settingsStartPage2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settingsStartPage2" />
         </RadioGroup>
+
+        <Switch
+            android:id="@+id/settingsKeepWiFiOnSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settingsKeepWifiOn" />
+
+        <Switch
+            android:id="@+id/settingsKeepDisplayOnSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settingsKeepDisplayOn" />
     </LinearLayout>
 </ScrollView>

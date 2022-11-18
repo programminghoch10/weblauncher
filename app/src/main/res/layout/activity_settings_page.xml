@@ -11,5 +11,69 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/pageNumberText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Page Number" />
+
+        <Switch
+            android:id="@+id/pageEnabledSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageEnabled" />
+
+        <EditText
+            android:id="@+id/pageUrlEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/pageUrlHint"
+            android:inputType="textUri" />
+
+        <Switch
+            android:id="@+id/pageInteractSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageInteract" />
+
+        <Switch
+            android:id="@+id/pageUnloadSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageUnload" />
+
+        <Switch
+            android:id="@+id/pageJavaScriptSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageJavaScript" />
+
+        <Switch
+            android:id="@+id/pageCache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageCache" />
+
+        <Switch
+            android:id="@+id/pageHapticSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageHaptic" />
+
+        <Switch
+            android:id="@+id/pageBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pageBack" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/pageUserAgent"
+            android:inputType="textPersonName" />
+
     </LinearLayout>
 </ScrollView>
