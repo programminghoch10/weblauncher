@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 33
+    namespace 'com.JJ.weblauncher'
+    compileSdk 35
     defaultConfig {
-        applicationId "com.JJ.weblauncher"
-        minSdkVersion 16
-        targetSdkVersion 33
+        minSdk 16
+        targetSdk 35
         versionCode 9
         versionName "9"
     }
