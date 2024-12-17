@@ -108,6 +108,12 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
+		WebView[] webviews = {
+				findViewById(R.id.webview1),
+				findViewById(R.id.webview2),
+		};
+		if (currentWebView > 0)
+			webviews[currentWebView - 1].onResume();
 	}
 	
 	@Override
@@ -201,8 +207,8 @@ public class MainActivity extends Activity {
 				{View.VISIBLE, View.INVISIBLE},
 				{View.INVISIBLE, View.VISIBLE},
 		};
-		webView1.setVisibility(visibilities[webviewid][0]);
-		webView2.setVisibility(visibilities[webviewid][1]);
+		setWebViewVisibility(webView1, visibilities[webviewid][0]);
+		setWebViewVisibility(webView2, visibilities[webviewid][1]);
 		switch (webviewid) {
 			case 1:
 				if (webView1unload) webView1.loadUrl(webView1URL);
@@ -230,6 +236,19 @@ public class MainActivity extends Activity {
 				break;
 		}
 		currentWebView = webviewid;
+	}
+
+	private void setWebViewVisibility(WebView webView, int visibility) {
+		switch (visibility) {
+			case View.GONE:
+			case View.INVISIBLE:
+				webView.onPause();
+				break;
+			case View.VISIBLE:
+				webView.onResume();
+				break;
+		}
+		webView.setVisibility(visibility);
 	}
 	
 	private void switchToDefaultWebsite(WebView webView, int id) {
@@ -313,5 +332,16 @@ public class MainActivity extends Activity {
 		webView.setLongClickable(false);
 		webView.setHapticFeedbackEnabled(hapticfeedbackenabled);
 		webView.loadUrl(url);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		WebView[] webviews = {
+				findViewById(R.id.webview1),
+				findViewById(R.id.webview2),
+		};
+		if (currentWebView > 0)
+			webviews[currentWebView - 1].onPause();
 	}
 }
